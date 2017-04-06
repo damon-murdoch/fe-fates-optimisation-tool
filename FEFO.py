@@ -1,5 +1,46 @@
 import csv
+##Weapons: Name, Rank, Mt, Hit, Crit, Avoid, Rng, Value, Desc
+##Healing: Name, Rank, Hit, Range, Uses, Worth, Exp, Desc
+##Consumable: Name, Uses, Worth, Description
+class Item:
+    name=""
+    value=0
+    desc=""
 
+    def __init__(self,name,value,desc):
+        self.name=name
+        self.value=value
+        self.desc=desc
+        pass
+    pass
+
+class Weapon(Item):
+    rank=""
+    mt=0
+    hit=0
+    crit=0
+    avo=0
+    rng=""
+    def __init__(self,name,value,desc,rank,mt,hit,crit,avo,rng):
+        self.rank=rank
+        self.mt=mt
+        self.hit=hit
+        self.crit=crit
+        self.avo=avo
+        self.rng=rng
+    pass
+
+class Consumable(Item):
+
+    pass
+
+class Support(Item):
+
+    pass
+
+    def __init__(self,data,parent):
+        Unit.__init__(self,data)
+        self.parent=parent
 
 class Unit:
     data=[]
@@ -118,6 +159,13 @@ with open('supports.csv','r') as supports:
             if n1==n2:
                 r = row[1].split()
                 i.set_supports(r)
+
+
+with open('weapons.csv','r') as weapons:
+    wreader=csv.reader(weapons,delimiter=',',quotechar="|")
+    for row in wreader:
+        pass
+
 
 def addCorrin(bane, boon, sex):
     ## Str,Mag,Skl,Spd,Lck,Def,Res
@@ -240,103 +288,24 @@ def test_pair(Father,Mother):
     for i in range(len(f)-1) :
          o.append(int(f[i+1])+int(m[i+1])+1)
          pass
-    print(o)
+    ##print(o)
+    return o
     pass
 
 print()
 
 ## Debugging Code
 
-"""
+containsCorrin=addCorrin("Lck","Spd","M")
+
 for f in Fathers:
+   oo=[]
+
    for m in Mothers:
-        print(m.get_name())
-        print(f.get_name())
+        print(f.get_name(),",",m.get_name())
+        ##print(f.get_name())
         print(f.get_supports())
-        if (m.get_name() in f.get_supports()) or (m.get_name=="Corrin") or (f.get_name=="Corrin"):
+        if ((m.get_name() in f.get_supports()) or (m.get_name=="Corrin") or (f.get_name=="Corrin")):
             print(m.get_name()," ",f.get_name())
-            test_pair(f.get_name(),m.get_name())
-            pass
-"""
-
-## Main Program Loop
-is_running=False
-containsCorrin=False
-
-print("Welcome to the Fire Emblem Fates Optimization Tool!")
-print("Type 'Help' for a list of available commands.")
-
-while(is_running==True):
-
-    while containsCorrin==False:
-        print("Custom Corrin has not been added to the system. Please add it now.")
-        print("Use the format '(Bane) (Boon) (Gender) without the brackets.'")
-        print("Stat Formats: HP, Str, Mag, Skl, Lck, Spd, Def, Res. Sex: M or F")
-        cmd=input("> ")
-        split = cmd.split()
-        if len(split) == 3:
-            containsCorrin=addCorrin(split[0], split[1], split[2])
         else:
-            containsCorrin=addCorrin("Lck","Spd","M")
-
-    cmd=input("> ")
-
-    if cmd=="Help":
-        print("Available Commands:")
-        print("Exit: Closes the Program")
-        print("Optimize (Child Name): Prints best partners for that child to have the highest stat requested.")
-        print("Pair (Mother) (Father): Pairs the two units and removes them from the unit pool. ")
-
-    elif cmd=="Exit":
-        is_running=False
-
-    elif "Print" in cmd:
-        split = cmd.split()
-        if len(split)==2:
-            if split[1]=="Mothers":
-                for i in Mothers:
-                    i.print_unit()
-            elif split[1]=="Fathers":
-                for i in Fathers:
-                    i.print_unit()
-            elif split[1]=="Children":
-                for i in Children:
-                    i.print_unit()
-
-    elif "Result" in cmd:
-        split = cmd.split()
-        if len(split) == 3:
-            for i in Children:
-                if row[1] == "Azura":
-                    for i in Fathers:
-                        if i.get_name() == temp.get_parent():
-                            temp.set_stats(i.get_stats())
-                            temp.set_name(namebak)
-                else:
-                    for i in Mothers:
-                        if i.get_name() == temp.get_parent():
-                            temp.set_stats(i.get_stats())
-                            temp.set_name(namebak)
-
-    ## Test Pair (Father) (Mother)
-    elif "Test Pair" in cmd:
-        split=cmd.split()
-        if len(split) == 4:
-            test_pair(split[2],split[3])
-
-
-    elif "Optimize" in cmd:
-        split = cmd.split()
-        if len(split) == 3:
-            for i in Children:
-                if i.get_name==split[1]:
-                    ##for j in Mothers:
-                    pass
-                print("mem")
-
-
-        else:
-            print("Please provide a child name and the stat you want to optimize.")
-
-    else:
-        print("Command not recognised. See 'Help' For a list of commands.")
+            print("Not compatible.")
