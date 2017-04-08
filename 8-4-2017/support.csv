@@ -1,0 +1,15 @@
+Heal,E,_,1,20,500,25,Restores (10 + Magic/3) HP to an ally
+Mend,D,_,1,15,1000,30,Restores (20 + Magic/3) HP to an ally
+Physic,C,_,1~7,5,3000,35,Restores (7 + Magic/3) HP to an ally
+Recover,B,_,1,5,3000,40,Restores (35 + Magic/3) HP to an ally
+Fortify,A,_,1~7,2,5000,70,Restores (7 + Magic/3) HP to all allies in range
+Freeze,D,80,1~7,4,1800,35,Reduces enemy's Movement to 0 and Avoid by 20 until next turn
+Enfeeble,C,80,1~7,4,2500,40,Reduces all of enemy's stats by 4 until next turn
+Entrap,B,60,1~7,2,4200,50,Moves an enemy next to the user
+Bifröst,S,_,_,1,0,130,Resurrects the last character who died in the current map
+Candy Cane,E,_,1,5,0,20,Restores 10 HP to an ally and 5 HP for the user
+Mushroom Staff,E,_,1,5,0,20,Restores 15 HP to an ally; increases user's Resistance by 2 until the mission's end
+Bouquet Staff,D,_,1,3,0,25,Restores 20 HP to an ally and increases their Luck by 4 until the mission's end
+Elise's Staff,C,_,1~5,1,0,30,Restores 10 HP to an ally
+Lilith's Staff,B,_,1~5,1,0,35,Restores 7 HP to all allies in range
+Astral Blessing,E,_,1~5,_,0,0,Restores (7 + Magic/3) HP to an ally; cannot trade
