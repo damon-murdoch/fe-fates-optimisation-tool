@@ -1,7 +1,10 @@
 import csv
+
 ##Weapons: Name, Rank, Mt, Hit, Crit, Avoid, Rng, Value, Desc
 ##Healing: Name, Rank, Hit, Range, Uses, Worth, Exp, Desc
 ##Consumable: Name, Uses, Worth, Description
+
+# item: name, value, desc
 class Item:
     name=""
     value=0
@@ -14,47 +17,71 @@ class Item:
         pass
     pass
 
+# weapon: rank, mt, hit, crit, avo, rng
+# parent: item
 class Weapon(Item):
-    rank=""
-    mt=0
-    hit=0
-    crit=0
-    avo=0
-    rng=""
+    
+    rank="" # Rank
+    mt=0 # Might (Damage)
+    hit=0 # Hit %
+    crit=0 # Crit %
+    avo=0 # Avoidance %
+    rng="" # Range
+
     def __init__(self,name,value,desc,rank,mt,hit,crit,avo,rng):
+
+        # Set properties to provided
         self.rank=rank
         self.mt=mt
         self.hit=hit
         self.crit=crit
         self.avo=avo
         self.rng=rng
-    pass
 
+# consumable: (nil)
+# parent: item
 class Consumable(Item):
 
+    # not implemented
     pass
 
+# support: (nil)
+# parent: item
 class Support(Item):
 
-    pass
 
     def __init__(self,data,parent):
         Unit.__init__(self,data)
         self.parent=parent
 
+# unit: data, supports
 class Unit:
-    data=[]
-    supports=[]
 
+    # Data Indexes:
+    # 0: Name
+    # 1: Str
+    # 2: Mag
+    # 3: Skl
+    # 4: Spd 
+    # 5: Lck
+    # 6: Res
+
+    data=[] # Data Array
+    supports=[] # Supports Array
+
+    # __init__(data: list): void
     def __init__(self,data):
         self.data=data
 
+    # print_unit(void): void
     def print_unit(self):
         print("Name:",self.data[0],"Str:",self.data[1],"Mag:",self.data[2],"Skl",self.data[3],"Spd",self.data[4],"Lck",self.data[5],"Def",self.data[6],"Res",self.data[7])
 
+    # get_name(void): string
     def get_name(self):
         return str(self.data[0])
 
+    # set_name(string): void
     def set_name(self,name):
         self.data[0]=name
 
@@ -104,19 +131,19 @@ Fathers=[]
 Mothers=[]
 Children=[]
 
-with open('mothers.csv','r') as mothers:
+with open('data/mothers.csv','r') as mothers:
     mreader=csv.reader(mothers,delimiter=',',quotechar="|")
     for row in mreader:
         temp = Unit((row[0],row[1], row[2], row[3], row[4], row[5], row[6],row[7]))
         Mothers.append(temp)
 
-with open('fathers.csv','r') as fathers:
+with open('data/fathers.csv','r') as fathers:
     freader=csv.reader(fathers,delimiter=',',quotechar="|")
     for row in freader:
         temp = Unit((row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7]))
         Fathers.append(temp)
 
-with open('children.csv','r') as children:
+with open('data/children.csv','r') as children:
     creader=csv.reader(children,delimiter=',',quotechar="|")
     for row in creader:
         temp = Child((row[0],0,0,0,0,0,0,0),row[1])
@@ -134,7 +161,7 @@ with open('children.csv','r') as children:
 
         Children.append(temp)
 
-with open('supports.csv','r') as supports:
+with open('data/supports.csv','r') as supports:
 
     sreader=csv.reader(supports,delimiter=',',quotechar="|")
     for row in sreader:
@@ -161,7 +188,7 @@ with open('supports.csv','r') as supports:
                 i.set_supports(r)
 
 
-with open('weapons.csv','r') as weapons:
+with open('data/weapons.csv','r') as weapons:
     wreader=csv.reader(weapons,delimiter=',',quotechar="|")
     for row in wreader:
         pass
@@ -303,7 +330,6 @@ for f in Fathers:
 
    for m in Mothers:
         print(f.get_name(),",",m.get_name())
-        ##print(f.get_name())
         print(f.get_supports())
         if ((m.get_name() in f.get_supports()) or (m.get_name=="Corrin") or (f.get_name=="Corrin")):
             print(m.get_name()," ",f.get_name())
